@@ -19,7 +19,7 @@
 	<language tag="en-GB">en-GB/en-GB.plg_content_jextboxarticlestatus.sys.ini</language>
 </languages>
 <updateservers>
-	<server type="extension" priority="2" name="JExtBOX Article Status - Updates">http://jextbox.com/updates/jextboxarticlestatus.xml</server>
+	<server type="extension" priority="2" name="JExtBOX Article Status - Updates">https://github.com/galaamn/jextbox-article-status/releases/download/v3.0.0/update-manifest.xml</server>
 </updateservers>
 <config>
 	<fields name="params">
