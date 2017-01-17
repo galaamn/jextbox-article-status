@@ -3,12 +3,12 @@
 <name>Content - JExtBOX Article Status</name>
 <author>Galaa</author>
 <creationDate>2012-10-21</creationDate>
-<copyright>Copyright (C) 2011-2012 Galaa (galaa.mn)</copyright>
+<copyright>Copyright (C) 2012-2017 Galaa (galaa.mn)</copyright>
 <license>http://www.gnu.org/licenses/gpl.html</license>
 <authorEmail>contact@galaa.mn</authorEmail>
 <authorUrl>http://galaa.mn/</authorUrl>
-<version>3.0.0</version>
-<description>This plugin displays status (Just added, Modified, Featured, Popular, Most hit and Archived) sign before article. HTML code is allowed in status message, and you can choise default nice status icons or replace. Copyright (C) 2012 Galaa (http://galaa.mn/). All rights reserved.</description>
+<version>3.1.0</version>
+<description>This plugin displays status (Just added, Modified, Featured, Popular, Most hit and Archived) sign before article. HTML code is allowed in status message, and you can choise default nice status icons or replace. Copyright (C) 2012-2017 Galaa (http://galaa.mn/). All rights reserved.</description>
 <files>
 	<filename plugin="jextboxarticlestatus">jextboxarticlestatus.php</filename>
 	<filename>index.html</filename>
@@ -23,7 +23,20 @@
 </updateservers>
 <config>
 	<fields name="params">
-		<fieldset name="basic">
+		<fieldset name="view-parameters" label="JEXTBOX_AS_TAB_VIEW_PARAMATERS">
+			<field name="show_in_full_view" type="radio" class="btn-group btn-group-yesno" default="yes" label="JEXTBOX_SHOW_IN_FULL_VIEW" description="JEXTBOX_SHOW_IN_FULL_VIEW_DESC" >
+  				<option value="yes">JEXTBOX_OPTION_YES</option>
+  				<option value="no">JEXTBOX_OPTION_NO</option>
+  			</field>
+			<field name="show_in_featured_view" type="radio" class="btn-group btn-group-yesno" default="yes" label="JEXTBOX_SHOW_IN_FEATURED_VIEW" description="JEXTBOX_SHOW_IN_FEATURED_VIEW_DESC" >
+  				<option value="yes">JEXTBOX_OPTION_YES</option>
+  				<option value="no">JEXTBOX_OPTION_NO</option>
+  			</field>
+			<field name="show_in_category_view" type="radio" class="btn-group btn-group-yesno" default="yes" label="JEXTBOX_SHOW_IN_CATEGORY_VIEW" description="JEXTBOX_SHOW_IN_CATEGORY_VIEW_DESC" >
+  				<option value="yes">JEXTBOX_OPTION_YES</option>
+  				<option value="no">JEXTBOX_OPTION_NO</option>
+  			</field>
+  			<field type="spacer" name="myspacer_view" label="JEXTBOX_AS_SPACER_VIEW_CUSTOM_STYLE" />
 			<field name="within_a_div" type="list" default="no" label="JEXTBOX_WITHIN_A_DIV" description="JEXTBOX_WITHIN_A_DIV_DESC" >
   				<option value="yes">JEXTBOX_OPTION_YES</option>
   				<option value="no">JEXTBOX_OPTION_NO</option>
@@ -34,6 +47,8 @@
   			</field>
 			<field name="div_name" type="text" default="jextboxarticlestatus" label="JEXTBOX_DIV" description="JEXTBOX_DIV_DESC" />
 			<field name="div_style" type="text" default="position:relative; top:-18px; left:6px;" size="30" label="JEXTBOX_DIV_STYLE" description="JEXTBOX_DIV_STYLE_DESC" />
+		</fieldset>
+		<fieldset name="category-or-article-parameters" label="JEXTBOX_AS_TAB_CATEGORY_OR_ARTICLE_PARAMATERS">
 			<field name="categories" type="category" extension="com_content" multiple="true" size="10" default="" label="JEXTBOX_CATS" description="JEXTBOX_CATS_DESC" />
 			<field name="categories_option" type="list" default="exclude" label="JEXTBOX_CATS_OPT" description="JEXTBOX_CATS_OPT_DESC" >
   				<option value="exclude">JEXTBOX_OPTION_EXCLUDE</option>
@@ -44,48 +59,42 @@
   				<option value="exclude">JEXTBOX_OPTION_EXCLUDE</option>
   				<option value="include">JEXTBOX_OPTION_INCLUDE</option>
   			</field>
-			<field name="show_in_full_view" type="list" default="yes" label="JEXTBOX_SHOW_IN_FULL_VIEW" description="JEXTBOX_SHOW_IN_FULL_VIEW_DESC" >
-  				<option value="yes">JEXTBOX_OPTION_YES</option>
-  				<option value="no">JEXTBOX_OPTION_NO</option>
-  			</field>
-			<field name="show_in_featured_view" type="list" default="yes" label="JEXTBOX_SHOW_IN_FEATURED_VIEW" description="JEXTBOX_SHOW_IN_FEATURED_VIEW_DESC" >
-  				<option value="yes">JEXTBOX_OPTION_YES</option>
-  				<option value="no">JEXTBOX_OPTION_NO</option>
-  			</field>
-			<field name="show_in_category_view" type="list" default="yes" label="JEXTBOX_SHOW_IN_CATEGORY_VIEW" description="JEXTBOX_SHOW_IN_CATEGORY_VIEW_DESC" >
-  				<option value="yes">JEXTBOX_OPTION_YES</option>
-  				<option value="no">JEXTBOX_OPTION_NO</option>
-  			</field>
+		</fieldset>
+		<fieldset name="identify-parameters" label="JEXTBOX_AS_TAB_IDENTIFY_PARAMATERS">
 			<field name="sign" type="list" default="default" label="JEXTBOX_SIGN" description="JEXTBOX_SIGN_DESC" >
   				<option value="default">JEXTBOX_OPTION_DEFAULT</option>
   				<option value="custom">JEXTBOX_OPTION_CUSTOM</option>
   			</field>
-			<field name="days" type="text" default="7" size="30" label="JEXTBOX_DAYS" description="JEXTBOX_DAYS_DESC" />
-			<field name="identify_new" type="list" default="yes" label="JEXTBOX_IDENTIFY_NEW" description="JEXTBOX_IDENTIFY_NEW_DESC" >
+  			<field type="spacer" name="myspacer_identify_new_or_modified" label="JEXTBOX_AS_SPACER_IDENTIFY_NEW_OR_MODIFIED" />
+			<field name="days" type="text" default="7" filter="uint" size="30" label="JEXTBOX_DAYS" description="JEXTBOX_DAYS_DESC" />
+			<field name="identify_new" type="radio" class="btn-group btn-group-yesno" default="yes" label="JEXTBOX_IDENTIFY_NEW" description="JEXTBOX_IDENTIFY_NEW_DESC" >
   				<option value="yes">JEXTBOX_OPTION_YES</option>
   				<option value="no">JEXTBOX_OPTION_NO</option>
   			</field>
-			<field name="sign_new_custom" type="text" size="30" default="Just Added" label="JEXTBOX_SIGN_NEW_CUSTOM" description="JEXTBOX_SIGN_NEW_CUSTOM_DESC" />
-			<field name="identify_modified" type="list" default="yes" label="JEXTBOX_IDENTIFY_MODIFIED" description="JEXTBOX_IDENTIFY_MODIFIED_DESC" >
+			<field name="sign_new_custom" type="text" filter="raw" size="30" default="Just Added" label="JEXTBOX_SIGN_NEW_CUSTOM" description="JEXTBOX_SIGN_NEW_CUSTOM_DESC" />
+			<field name="identify_modified" type="radio" class="btn-group btn-group-yesno" default="yes" label="JEXTBOX_IDENTIFY_MODIFIED" description="JEXTBOX_IDENTIFY_MODIFIED_DESC" >
   				<option value="yes">JEXTBOX_OPTION_YES</option>
   				<option value="no">JEXTBOX_OPTION_NO</option>
   			</field>
-			<field name="sign_modified_custom" type="text" size="30" default="Modified" label="JEXTBOX_SIGN_MODIFIED_CUSTOM" description="JEXTBOX_SIGN_MODIFIED_CUSTOM_DESC" />
-			<field name="identify_featured" type="list" default="yes" label="JEXTBOX_IDENTIFY_FEATURED" description="JEXTBOX_IDENTIFY_FEATURED_DESC" >
+			<field name="sign_modified_custom" type="text" filter="raw" size="30" default="Modified" label="JEXTBOX_SIGN_MODIFIED_CUSTOM" description="JEXTBOX_SIGN_MODIFIED_CUSTOM_DESC" />
+  			<field type="spacer" name="myspacer_identify_featured" label="JEXTBOX_AS_SPACER_IDENTIFY_FEATURED" />
+			<field name="identify_featured" type="radio" class="btn-group btn-group-yesno" default="yes" label="JEXTBOX_IDENTIFY_FEATURED" description="JEXTBOX_IDENTIFY_FEATURED_DESC" >
   				<option value="yes">JEXTBOX_OPTION_YES</option>
   				<option value="no">JEXTBOX_OPTION_NO</option>
   			</field>
-			<field name="sign_featured_custom" type="text" size="30" default="Featured" label="JEXTBOX_SIGN_FEATURED_CUSTOM" description="JEXTBOX_SIGN_FEATURED_CUSTOM_DESC" />
-			<field name="identify_archived" type="list" default="yes" label="JEXTBOX_IDENTIFY_ARCHIVED" description="JEXTBOX_IDENTIFY_ARCHIVED_DESC" >
+			<field name="sign_featured_custom" type="text" filter="raw" size="30" default="Featured" label="JEXTBOX_SIGN_FEATURED_CUSTOM" description="JEXTBOX_SIGN_FEATURED_CUSTOM_DESC" />
+  			<field type="spacer" name="myspacer_identify_archived" label="JEXTBOX_AS_SPACER_IDENTIFY_ARCHIVED" />
+			<field name="identify_archived" type="radio" class="btn-group btn-group-yesno" default="yes" label="JEXTBOX_IDENTIFY_ARCHIVED" description="JEXTBOX_IDENTIFY_ARCHIVED_DESC" >
   				<option value="yes">JEXTBOX_OPTION_YES</option>
   				<option value="no">JEXTBOX_OPTION_NO</option>
   			</field>
-			<field name="sign_archived_custom" type="text" size="30" default="Archived" label="JEXTBOX_SIGN_ARCHIVED_CUSTOM" description="JEXTBOX_SIGN_ARCHIVED_CUSTOM_DESC" />
-			<field name="identify_hit" type="list" default="yes" label="JEXTBOX_IDENTIFY_HIT" description="JEXTBOX_IDENTIFY_HIT_DESC" >
+			<field name="sign_archived_custom" type="text" filter="raw" size="30" default="Archived" label="JEXTBOX_SIGN_ARCHIVED_CUSTOM" description="JEXTBOX_SIGN_ARCHIVED_CUSTOM_DESC" />
+  			<field type="spacer" name="myspacer_identify_hit" label="JEXTBOX_AS_SPACER_IDENTIFY_HIT" />
+			<field name="identify_hit" type="radio" class="btn-group btn-group-yesno" default="yes" label="JEXTBOX_IDENTIFY_HIT" description="JEXTBOX_IDENTIFY_HIT_DESC" >
   				<option value="yes">JEXTBOX_OPTION_YES</option>
   				<option value="no">JEXTBOX_OPTION_NO</option>
   			</field>
-			<field name="sign_hit_custom" type="text" size="30" default="Most Hit" label="JEXTBOX_SIGN_HIT_CUSTOM" description="JEXTBOX_SIGN_HIT_CUSTOM_DESC" />
+			<field name="sign_hit_custom" type="text" filter="raw" size="30" default="Most Hit" label="JEXTBOX_SIGN_HIT_CUSTOM" description="JEXTBOX_SIGN_HIT_CUSTOM_DESC" />
 			<field name="sign_hit_limit" type="list" default="0.9" label="JEXTBOX_SIGN_HIT_LIMIT" description="JEXTBOX_SIGN_HIT_LIMIT_DESC" >
   				<option value="0.95">JEXTBOX_OPTION_95</option>
   				<option value="0.9">JEXTBOX_OPTION_90</option>
@@ -93,11 +102,12 @@
   				<option value="0.75">JEXTBOX_OPTION_75</option>
   				<option value="0.6">JEXTBOX_OPTION_60</option>
   			</field>
-			<field name="identify_popular" type="list" default="yes" label="JEXTBOX_IDENTIFY_POPULAR" description="JEXTBOX_IDENTIFY_POPULAR_DESC" >
+  			<field type="spacer" name="myspacer_identify_popular" label="JEXTBOX_AS_SPACER_IDENTIFY_POPULAR" />
+			<field name="identify_popular" type="radio" class="btn-group btn-group-yesno" default="yes" label="JEXTBOX_IDENTIFY_POPULAR" description="JEXTBOX_IDENTIFY_POPULAR_DESC" >
   				<option value="yes">JEXTBOX_OPTION_YES</option>
   				<option value="no">JEXTBOX_OPTION_NO</option>
   			</field>
-			<field name="sign_popular_custom" type="text" size="30" default="Popular" label="JEXTBOX_SIGN_POPULAR_CUSTOM" description="JEXTBOX_SIGN_POPULAR_CUSTOM_DESC" />
+			<field name="sign_popular_custom" type="text" filter="raw" size="30" default="Popular" label="JEXTBOX_SIGN_POPULAR_CUSTOM" description="JEXTBOX_SIGN_POPULAR_CUSTOM_DESC" />
 			<field name="sign_popular_limit" type="list" default="0.75" label="JEXTBOX_SIGN_POPULAR_LIMIT" description="JEXTBOX_SIGN_POPULAR_LIMIT_DESC" >
   				<option value="0.9">JEXTBOX_OPTION_90</option>
   				<option value="0.85">JEXTBOX_OPTION_85</option>

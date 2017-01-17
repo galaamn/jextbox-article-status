@@ -6,7 +6,7 @@
 * @publisher     JExtBOX - BOX of Joomla Extensions (www.jextbox.com)
 * @authorUrl     www.galaa.mn
 * @authorEmail   contact@galaa.mn
-* @copyright     copyright (C) 2012 Galaa
+* @copyright     copyright (C) 2012-2017 Galaa
 * @license       This extension in released under the GNU/GPL License - http://www.gnu.org/copyleft/gpl.html
 */
 
@@ -157,7 +157,7 @@ class plgContentjextboxarticlestatus extends JPlugin
 
 		// define Archived status
 		$archived_status = '';
-		if(($this->params->get('identify_archived') == 'yes') && ($article->state == 2)){
+		if(($this->params->get('identify_archived') == 'yes') && isset($article->state) && ($article->state == 2)){
 			if($this->params->get('sign') == 'default'){
 				$status = '<img style="border: 0pt none; vertical-align: middle;" alt="Archived" title="" src="plugins/content/jextboxarticlestatus/images/archived.png"/>';
 			}else{
