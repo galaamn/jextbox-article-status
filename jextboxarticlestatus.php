@@ -5,8 +5,7 @@
 * @author        Galaa
 * @publisher     JExtBOX - BOX of Joomla Extensions (www.jextbox.com)
 * @authorUrl     www.galaa.mn
-* @authorEmail   contact@galaa.mn
-* @copyright     copyright (C) 2012-2017 Galaa
+* @copyright     copyright (C) 2012-2018 Galaa
 * @license       This extension in released under the GNU/GPL License - http://www.gnu.org/copyleft/gpl.html
 */
 
@@ -19,8 +18,11 @@ jimport('joomla.plugin.plugin');
 class plgContentjextboxarticlestatus extends JPlugin
 {
 
-	public function onContentBeforeDisplay($context, &$article, &$params, $limitstart)
+	public function onContentBeforeDisplay($context, &$article, &$params)
 	{
+
+		$app = JFactory::getApplication();
+		if($app->isAdmin()) return;
 
 		// check excluded views
 		$categories = $this->params->get('categories',array());
@@ -35,7 +37,7 @@ class plgContentjextboxarticlestatus extends JPlugin
 		if((in_array($article->id, $articles) && ($this->params->get('articles_option') == 'exclude')) || (!in_array($article->id, $articles) && ($this->params->get('articles_option') == 'include'))){
 			return '';
 		}
-		$view = JRequest::getCmd('view');
+		$view = JFactory::getApplication()->input;
 		if(($view == 'article') && ($this->params->get('show_in_full_view') == 'no')){ 
 			return '';
 		}
@@ -106,10 +108,10 @@ class plgContentjextboxarticlestatus extends JPlugin
 		// Hit or Popular status
 		$hit_status = '';
 		$db = JFactory::getDBO();
-		$query = 'SELECT hits FROM `#__content` WHERE state = 1 ';
+		$query = 'SELECT `hits` FROM `#__content` WHERE `state`=1 ';
 		if(!empty($categories)){
-			$categories = implode(',', $categories);;
-			$query .= 'AND catid ';
+			$categories = implode(',', $categories);
+			$query .= 'AND `catid` ';
 			if($this->params->get('categories_option') == 'exclude'){
 				$query .= 'NOT ';
 			}
@@ -117,15 +119,15 @@ class plgContentjextboxarticlestatus extends JPlugin
 		}
 		$articles = trim($this->params->get('articles'));
 		if(!empty($articles)){
-			$query .= 'AND id ';
+			$query .= 'AND `id` ';
 			if($this->params->get('articles_option') == 'exclude'){
 				$query .= 'NOT ';
 			}
 			$query .= 'IN ('.$articles.') ';
 		}
-		$query .= 'ORDER BY hits ASC ';
+		$query .= 'ORDER BY `hits` ASC';
 		$db->setQuery($query);
-		$hits_array = $db->loadResultArray();
+		$hits_array = $db->loadColumn();
 		$sign_hit_limit = $this->params->get('sign_hit_limit',0.9);
 		$sign_hit_limit = $hits_array[floor($sign_hit_limit * count($hits_array))];
 		$sign_popular_limit = $this->params->get('sign_popular_limit',0.75);
@@ -133,7 +135,7 @@ class plgContentjextboxarticlestatus extends JPlugin
 		unset($hits_array);
 
 		// define Most Hit status
-		if(($this->params->get('identify_hit') == 'yes') && ($article->hits > $sign_hit_limit)){
+		if(($this->params->get('identify_hit') == 'yes') && ($article->hits >= $sign_hit_limit)){
 			if($this->params->get('sign') == 'default'){
 				$status = '<img style="border: 0pt none; vertical-align: middle;" alt="Most Hit" title="" src="plugins/content/jextboxarticlestatus/images/most_hit.png"/>';
 			}else{
@@ -143,7 +145,7 @@ class plgContentjextboxarticlestatus extends JPlugin
 		}
 
 		// define Popular status
-		if(($this->params->get('identify_popular') == 'yes') && ($hit_status == '') && ($article->hits > $sign_popular_limit)){
+		if(($this->params->get('identify_popular') == 'yes') && ($hit_status == '') && ($article->hits >= $sign_popular_limit)){
 			if($this->params->get('sign') == 'default'){
 				$status = '<img style="border: 0pt none; vertical-align: middle;" alt="Popular" title="" src="plugins/content/jextboxarticlestatus/images/popular.png"/>';
 			}else{

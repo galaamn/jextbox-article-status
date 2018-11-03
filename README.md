@@ -1,5 +1,6 @@
 [JExtBOX Article Status](http://jextbox.com/jextbox-article-status.html)
 ========
-This is a plugin for Joomla CMS. The plugin displays status (Just added, Modified, Featured, Archived, Popular and Most Hit) sign before an article.
 
-Copyright (C) 2012-2017 [Galaa](http://galaa.mn)
+This plugin displays status signs (Just added, Modified, Featured, Popular, Most hit and Archived) before an article. Custom HTML code is allowed in the status message and you can choose or replace default status icons. Copyright (C) 2012-2018 Galaa (http://galaa.mn/). All rights reserved.
+
+Copyright (C) 2012-2018 [Galaa](http://galaa.mn)
