@@ -23,7 +23,9 @@ class plgContentjextboxarticlestatus extends JPlugin
 
 		// check excluded views
 
-		if (JFactory::getApplication()->isAdmin() || JFactory::getApplication()->input->get('option', '', 'cmd') != 'com_content') return;
+		if (JFactory::getApplication()->isAdmin() || JFactory::getApplication()->input->get('option', '', 'cmd') != 'com_content' || !in_array($context, array('com_content.article', 'com_content.category', 'com_content.featured'))) :
+			return;
+		endif;
 
 		$categories = $this->params->get('categories', array());
 		$categories_option = $this->params->get('categories_option', 'exclude');
